@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.103-slim
+FROM maven:3.5.2-jdk-8-slim
 
 # Install docker
 USER root
@@ -18,6 +18,3 @@ RUN apt-get update \
            stable" \
     && apt-get update \
     && apt-get -y install docker-ce
-
-# change back to parent image user
-USER jenkins
