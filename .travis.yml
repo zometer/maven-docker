@@ -1,0 +1,16 @@
+sudo: required
+
+language: java
+
+services:
+  - docker
+
+script:
+  - export MAVEN_IMAGE_VERSION=`grep FROM Dockerfile | sed -e s/.*:// -e 's/[[:space:]]//g'`
+  - env | grep -i maven
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker image build -t zometer/maven-docker:$MAVEN_IMAGE_VERSION .
+  - docker image push zometer/maven-docker:$MAVEN_IMAGE_VERSION
+  - docker logout
+
+
